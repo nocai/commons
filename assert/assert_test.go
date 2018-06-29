@@ -1,4 +1,4 @@
-package gox
+package assert
 
 import (
 	"testing"

@@ -1,4 +1,4 @@
-package gox
+package assert
 
 // 断言
 // if expression = false, panic the i
