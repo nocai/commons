@@ -9,32 +9,23 @@ import (
 
 type conf map[string]string
 
-func (c conf) Get(key string, defVal ...string) string {
+func (c conf) Get(key string) string {
 	if val, exist := c[key]; exist {
 		return val
 	}
-	if len(defVal) > 0 {
-		return defVal[0]
-	}
-	return ""
+	panic("No value for key : '" + key + "'")
 }
 
-func (c conf) GetI(key string, defVal ...int) int {
-	if val := c.Get(key); val != "" {
-		if val, err := strconv.Atoi(val); err != nil {
-			panic(err)
-		} else {
-			return val
-		}
+func (c conf) GetI(key string) int {
+	val, err := strconv.Atoi(c.Get(key))
+	if err != nil {
+		panic(err)
 	}
-	if len(defVal) > 0 {
-		return defVal[0]
-	}
-	return 0
+	return val
 }
 
-func GetI(key string, defVal ...int) int {
-	return C.GetI(key, defVal...)
+func GetI(key string) int {
+	return C.GetI(key)
 }
 
 var C = make(conf, 10)
