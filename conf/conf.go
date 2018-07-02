@@ -4,19 +4,50 @@ import (
 	"log"
 	"os"
 	"gopkg.in/ini.v1"
+	"strconv"
 )
 
-func init() {
-	initConfig()
+type conf map[string]string
+
+func (c conf) Get(key string, defVal ...string) string {
+	if val, exist := c[key]; exist {
+		return val
+	}
+	if len(defVal) > 0 {
+		return defVal[0]
+	}
+	return ""
 }
 
-var Config = make(map[string]interface{}, 10)
+func (c conf) GetI(key string, defVal ...int) int {
+	if val := c.Get(key); val != "" {
+		if val, err := strconv.Atoi(val); err != nil {
+			panic(err)
+		} else {
+			return val
+		}
+	}
+	if len(defVal) > 0 {
+		return defVal[0]
+	}
+	return 0
+}
+
+func GetI(key string, defVal ...int) int {
+	return C.GetI(key, defVal...)
+}
+
+var C = make(conf, 10)
+
+func init() {
+	load()
+}
 
 const (
 	configName = "/app.conf"
 )
 
-func initConfig() {
+func load() {
 	pwd, err := os.Getwd()
 	if err != nil {
 		panic(err)
@@ -33,7 +64,7 @@ func initConfig() {
 	}
 	keys := section.Keys()
 	for _, key := range keys {
-		Config[key.Name()] = key.Value()
+		C[key.Name()] = key.Value()
 	}
-	log.Println(Config)
+	log.Println(C)
 }
