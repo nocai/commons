@@ -56,7 +56,7 @@ func (this *BaseSql) String() string {
 		The Args = %q`, this.sql.String(), this.args)
 }
 
-func NewDefaultSqler(sql string) Sqler {
+func New(sql string) Sqler {
 	var sqler BaseSql
 	sqler.sql.WriteString(sql)
 	return &sqler

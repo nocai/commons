@@ -1,0 +1,13 @@
+{
+	"version": 0,
+	"dependencies": [
+		{
+			"importpath": "gopkg.in/ini.v1",
+			"repository": "https://gopkg.in/ini.v1",
+			"vcs": "git",
+			"revision": "06f5f3d67269ccec1fe5fe4134ba6e982984f7f5",
+			"branch": "master",
+			"notests": true
+		}
+	]
+}
