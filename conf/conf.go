@@ -24,6 +24,10 @@ func (c conf) GetI(key string) int {
 	return val
 }
 
+func Get(key string) string {
+	return C.Get(key)
+}
+
 func GetI(key string) int {
 	return C.GetI(key)
 }
