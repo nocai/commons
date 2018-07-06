@@ -13,6 +13,7 @@
 
 **/vendor/**
 !vendor/manifest
+!vendor/vendor.json
 
 .idea/
 *sublime*
