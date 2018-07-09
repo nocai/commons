@@ -5,18 +5,21 @@ type BizError interface {
 	Code() string
 }
 
-type defaultErr struct {
+type bizError struct {
 	code string
 	msg  string
 }
 
-func (err defaultErr) Error() string {
+func (err bizError) Error() string {
 	return err.msg
 }
-func (err defaultErr) Code() string {
+func (err bizError) Code() string {
 	return err.code
 }
 
 func New(code, msg string) BizError {
-	return defaultErr{code, msg}
+	return bizError{code, msg}
 }
+
+
+
