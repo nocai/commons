@@ -2,8 +2,8 @@ package assert
 
 // 断言
 // if expression = false, panic the i
-func Assert(expression bool, i interface{}) {
+func Assert(expression bool, format string, i ...interface{}) {
 	if !expression {
-		panic(i)
+		panic(fmt.Sprintf(format, i...))
 	}
 }
