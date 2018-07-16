@@ -15,7 +15,10 @@ type bizError struct {
 }
 
 func (err bizError) Error() string {
-	return err.msg + ":" + err.cause.Error()
+	result := err.msg
+	if err.cause != nil {
+		result = result + ":" + err.cause.Error()
+	}
 }
 func (err bizError) Code() string {
 	return err.code
