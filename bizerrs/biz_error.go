@@ -19,6 +19,7 @@ func (err bizError) Error() string {
 	if err.cause != nil {
 		result = result + ":" + err.cause.Error()
 	}
+	return result
 }
 func (err bizError) Code() string {
 	return err.code
