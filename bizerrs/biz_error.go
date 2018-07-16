@@ -25,12 +25,9 @@ func (err bizError) Cause() error {
 }
 
 func New(code, msg string) BizError {
-	return bizError{code, msg}
+	return bizError{code: code, msg: msg}
 }
 
 func Wrap(err BizError, cause error) BizError {
-	return  bizError(err.Code(), err.Error(), cause)
+	return bizError{err.Code(), err.Error(), cause}
 }
-
-
-
