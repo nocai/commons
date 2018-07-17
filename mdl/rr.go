@@ -7,9 +7,8 @@ type Request struct {
 }
 
 type Response struct {
-	ReqNo string      `json:"reqNo"`
-	Code  string      `json:"code"`
-	Msg   string      `json:"msg"`
-	Now   time.Time   `json:"now"`
-	Data  interface{} `json:"data"`
+	Code string      `json:"code"`
+	Msg  string      `json:"msg"`
+	Now  time.Time   `json:"now"`
+	Data interface{} `json:"data"`
 }
