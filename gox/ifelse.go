@@ -1,6 +1,6 @@
 package gox
 
-func Ifelse(condition bool, ifVal, elseVal interface{}) interface{} {
+func IfElse(condition bool, ifVal, elseVal interface{}) interface{} {
 	if condition {
 		return ifVal
 	} else {

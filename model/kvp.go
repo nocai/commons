@@ -1,4 +1,4 @@
-package mdl
+package model
 
 type Kvp struct {
 	Key   interface{}
