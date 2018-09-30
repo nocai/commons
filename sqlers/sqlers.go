@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 type Sqler interface {
@@ -14,6 +15,7 @@ type Sqler interface {
 	GetArgs() []interface{}
 
 	AppendSqlAndArgs(sql string, arg ...interface{}) Sqler
+	AppendArgs(args ...interface{}) Sqler
 }
 
 type BaseSql struct {
@@ -30,8 +32,19 @@ func (this BaseSql) GetArgs() []interface{} {
 }
 
 func (this *BaseSql) AppendSqlAndArgs(sql string, arg ...interface{}) Sqler {
+	if sql == "" {
+		panic("The sql is blank")
+	}
+	if !strings.HasPrefix(sql, " ") {
+		sql = " " + sql
+	}
 	this.sql.WriteString(sql)
 	this.args = append(this.args, arg...)
+	return this
+}
+
+func (this *BaseSql) AppendArgs(args ...interface{}) Sqler {
+	this.args = append(this.args, args...)
 	return this
 }
 
@@ -57,7 +70,15 @@ func (this *BaseSql) String() string {
 }
 
 func New(sql string) Sqler {
+	if len(sql) <= 0 {
+		panic("The sql is blank")
+	}
+
 	var sqler BaseSql
 	sqler.sql.WriteString(sql)
+
+	if !strings.HasSuffix(sql, " where 1 = 1") {
+		sqler.sql.WriteString(" where 1 = 1")
+	}
 	return &sqler
 }
