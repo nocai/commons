@@ -35,6 +35,9 @@ func (this *BaseSql) AppendSqlAndArgs(sql string, arg ...interface{}) Sqler {
 	if sql == "" {
 		panic("The sql is blank")
 	}
+	if !strings.HasSuffix(this.sql.String(), "where 1 = 1") {
+		this.sql.WriteString(" where 1 = 1")
+	}
 	if !strings.HasPrefix(sql, " ") {
 		sql = " " + sql
 	}
@@ -76,9 +79,5 @@ func New(sql string) Sqler {
 
 	var sqler BaseSql
 	sqler.sql.WriteString(sql)
-
-	if !strings.HasSuffix(sql, " where 1 = 1") {
-		sqler.sql.WriteString(" where 1 = 1")
-	}
 	return &sqler
 }
